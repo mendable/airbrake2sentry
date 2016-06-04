@@ -28,7 +28,7 @@ func BuildRavenPacketFromAirbrake23Notice(airbrakeNotice *Airbrake23Notice) *rav
 }
 
 func BuildRavenInterfacesFromAirbrake32Notice(airbrakeNotice *Airbrake23Notice) []raven.Interface {
-	interfaces := []raven.Interface{}
+	var interfaces []raven.Interface
 
 	// Append details of the exception to the exception interface
 	// https://docs.getsentry.com/hosted/clientdev/interfaces/#failure-interfaces
