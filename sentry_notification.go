@@ -23,24 +23,22 @@ type SentryNotification struct {
 
 // Returns a URL that can be used to directly find the notification in the
 // Sentry web interface once the notification has been sent.
-func (sentryNotification *SentryNotification) SearchURL() string {
+func (sn *SentryNotification) SearchURL() string {
 	return fmt.Sprintf("https://app.getsentry.com/%s/%s/?query=%s",
-		sentryNotification.OrganizationName,
-		sentryNotification.ProjectName,
-		sentryNotification.EventID)
+		sn.OrganizationName, sn.ProjectName, sn.EventID)
 }
 
 // Sends the raven Packet for the notification to the SentryDSN.
-func (sentryNotification *SentryNotification) Send() {
-	log.Printf("Notifying Sentry: %s", sentryNotification.EventID)
+func (sn *SentryNotification) Send() {
+	log.Printf("Notifying Sentry: %s", sn.EventID)
 
-	client, err := raven.New(sentryNotification.SentryDSN)
+	client, err := raven.New(sn.SentryDSN)
 	if err != nil {
 		log.Println(err)
 		return
 	}
 
-	eventID, ch := client.Capture(sentryNotification.RavenPacket, nil)
+	eventID, ch := client.Capture(sn.RavenPacket, nil)
 	if err = <-ch; err != nil {
 		log.Println(err)
 		return

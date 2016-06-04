@@ -34,22 +34,22 @@ type ConfigAirbrakeProject struct {
 
 // Loads the configuration from the the default config file into the global
 // config variable.
-func (config *Config) Load() {
-	if _, err := toml.DecodeFile(CONFIG_FILE, &config); err != nil {
+func (c *Config) Load() {
+	if _, err := toml.DecodeFile(CONFIG_FILE, &c); err != nil {
 		log.Fatalf("Fatal error reading config file: %s \n", err)
 	}
 }
 
 // Returns the listen host and port in a string format that can be
 // passed directly to http.ListenAndServe.
-func (config *Config) ListenHostAndPort() string {
-	return fmt.Sprintf("%s:%d", config.Airbrake2Sentry.ListenHost, config.Airbrake2Sentry.ListenPort)
+func (c *Config) ListenHostAndPort() string {
+	return fmt.Sprintf("%s:%d", c.Airbrake2Sentry.ListenHost, c.Airbrake2Sentry.ListenPort)
 }
 
 // Searches the configuration for a project definition for given Airbrake
 // API key, and returns the ConfigAirbrakeProject struct if found.
-func (config *Config) FindProjectForAirbrakeAPIKey(APIKey string) (*ConfigAirbrakeProject, error) {
-	for _, value := range config.Projects {
+func (c *Config) FindProjectForAirbrakeAPIKey(APIKey string) (*ConfigAirbrakeProject, error) {
+	for _, value := range c.Projects {
 		if value.AirbrakeAPIKey == APIKey {
 			return &value, nil
 		}
