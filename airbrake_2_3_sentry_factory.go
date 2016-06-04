@@ -108,7 +108,7 @@ func BuildRavenStacktraceFromAirbrake32Notice(airbrakeNotice *Airbrake23Notice) 
 			Lineno:       line.Number,
 			Function:     line.Method,
 			InApp:        false}
-		frames = append(frames, frame)
+		frames = append([]*raven.StacktraceFrame{frame}, frames...)
 	}
 
 	return &raven.Stacktrace{frames}
