@@ -1,0 +1,17 @@
+#### Own configuration ####
+
+[airbrake2sentry]
+listen_host = "localhost"
+listen_port = 6633
+own_sentry_dsn = "https://user:secret@app.getsentry.com/project-id"
+
+
+
+##### Airbrake Projects being forwarded ####
+[projects] # leave this line; add each airbrake project below
+
+[projects.test]
+airbrake_api_key = "76fdb93ab2cf276ec080671a8b3d3866"
+sentry_organization_name = "my-company"
+sentry_project_name = "awesome-app"
+sentry_dsn = "https://user:secret@app.getsentry.com/project-id"
